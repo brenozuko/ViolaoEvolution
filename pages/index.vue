@@ -23,18 +23,18 @@
 
         <div class="flex flex-col" v-if="practice">
           <h1 class="chord-title -mb-10">
-            {{ notasArray[index].chord }}
+            {{ notasArray[indexElement].chord }}
           </h1>
-          <audio :src="notasArray[index].audio" autoplay loop></audio>
+          <audio :src="notasArray[indexElement].audio" autoplay loop></audio>
 
           <div style="min-height: 450px">
             <div v-if="reveal" class="flex justify-center pb-10">
-              <img :src="notasArray[index].url" alt="Chord" />
+              <img :src="notasArray[indexElement].url" alt="Chord" />
             </div>
           </div>
 
           <div class="flex flex-col md:flex-row justify-center mx-auto">
-            <button @click="getRandomInt(0, 4, $event)" class="button-partiu">
+            <button @click="goThroughSequence()" class="button-partiu">
               REVELAR DIAGRAMA
             </button>
           </div>
@@ -60,6 +60,8 @@ export default {
       reveal: false,
       beforeNumber: 0,
       calledOnce: 0,
+      indexArray: [0, 1, 2, 3, 4],
+      indexElement: 0,
     };
   },
 
@@ -68,19 +70,62 @@ export default {
       this.practice = !this.practice;
     },
 
-    getRandomInt(min, max, event) {
+    // getRandomInt(min, max) {
+    //   this.reveal = true;
+    //   this.calledOnce++;
+    //   if (this.calledOnce == 1) {
+    //     setTimeout(() => {
+    //       console.log("Tá chamando");
+    //       min = Math.ceil(min);
+    //       max = Math.floor(max);
+    //       this.index = Math.floor(Math.random() * (max - min)) + min;
+    //       this.reveal = false;
+    //       this.calledOnce = 0;
+    //     }, 3000);
+    //   }
+    // },
+
+    goThroughSequence() {
+      if (this.index == 0) {
+        this.shuffle(this.indexArray);
+      }
+
       this.reveal = true;
       this.calledOnce++;
       if (this.calledOnce == 1) {
         setTimeout(() => {
-          console.log("Tá chamando");
-          min = Math.ceil(min);
-          max = Math.floor(max);
-          this.index = Math.floor(Math.random() * (max - min)) + min;
+          console.log(this.indexArray);
+          this.indexElement = this.indexArray[this.index];
           this.reveal = false;
-          this.calledOnce = 0;
+           this.calledOnce = 0;
         }, 3000);
       }
+
+      if (this.index < this.indexArray.length - 1) {
+        this.index++;
+      } else {
+        this.index = 0;
+      }
+    },
+
+    shuffle(array) {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
     },
   },
 };
