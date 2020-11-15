@@ -1,4 +1,6 @@
-# mudanota
+# Sistema de apoio ao aprendizado de violão.
+
+Esta aplicação tem como propósito inicial oferecer apoio ao estudante de violão para treino de visualização e troca de acordes.
 
 ## Build Setup
 
