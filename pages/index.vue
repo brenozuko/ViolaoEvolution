@@ -3,11 +3,13 @@
     <div class="frame">
       <div>
         <div class="flex pt-2 justify-center">
+          <a href="/">
           <img
             class="h-24"
             src="@/assets/img/violao-branco.png"
             alt="Violão Branco"
           />
+          </a>
         </div>
         <div v-if="!practice">
           <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
