@@ -1,38 +1,54 @@
 <template>
-  <div class="frame">
-    <div>
-      <div class="flex py-10 justify-center">
-        <img
-          class="h-24"
-          src="@/assets/img/violao-branco.png"
-          alt="Violão Branco"
-        />
-      </div>
-      <div v-if="!practice">
-        <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
-        <div class="flex justify-center py-2">
-          <button
-            @click="
-              setPractice();
-              getRandomInt(0, 4);
-            "
-            class="button-partiu focus:outline-none"
-          >
-            PARTIU
-          </button>
+  <div>
+    <div class="frame">
+      <div>
+        <div class="flex pt-2 justify-center">
+          <img
+            class="h-24"
+            src="@/assets/img/violao-branco.png"
+            alt="Violão Branco"
+          />
         </div>
-      </div>
+        <div v-if="!practice">
+          <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
+          <div class="flex justify-center py-2">
+            <button
+              @click="
+                setPractice();
+                getRandomInt(0,4);
+              "
+              class="button-partiu focus:outline-none"
+            >
+              PARTIU
+            </button>
+          </div>
+        </div>
 
-      <div v-if="practice">
-        <div class="flex justify-center">
-          <audio :src="notasArray[index].audio" autoplay></audio>
-          <img :src="notasArray[index].url" alt="Chord" />
+        <div v-if="practice">
+          <div class="flex justify-center">
+            <audio :src="notasArray[index].audio" autoplay></audio>
+            <img :src="notasArray[index].url" alt="Chord" />
+          </div>
+          <h1 class="text-center text-6xl font-bold pb-2">
+            {{ notasArray[index].chord }}
+          </h1>
+          <div class="flex justify-center">
+            <button
+              @click="
+                setPractice();
+                getRandomInt(0,4);
+              "
+              class="button-partiu"
+            >
+              PARAR DE PRATICAR
+            </button>
+          </div>
         </div>
-        <h1 class="text-center text-6xl font-bold pb-6">
-          {{ notasArray[index].chord }}
-        </h1>
       </div>
     </div>
+    <p class="text-center pb-2">
+      Violão Evolution &copy Todos direitos reservados.
+    </p>
   </div>
 </template>
 
@@ -49,17 +65,22 @@ export default {
     };
   },
 
+
   methods: {
     setPractice() {
-      this.practice = true;
+      this.practice = !this.practice;
     },
 
     getRandomInt(min, max) {
-      setInterval(() => {
+      let myInterval = setInterval(() => {
+        console.log("Tá chamando");
         min = Math.ceil(min);
         max = Math.floor(max);
         this.index = Math.floor(Math.random() * (max - min)) + min;
-      }, 4000);
+      }, 3000);
+      if (this.practice == false) {
+          document.location.reload(true)
+      }
     },
   },
 };
