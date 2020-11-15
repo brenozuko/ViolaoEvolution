@@ -9,20 +9,22 @@
             alt="Violão Branco"
           />
         </div>
-        <div v-if="!practice">
-          <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
-          <div class="flex justify-center py-2">
-            <button
-              @click="
-                setPractice();
-                getRandomInt(0,4);
-              "
-              class="button-partiu focus:outline-none"
-            >
-              PARTIU
-            </button>
+        <transition name="fade">
+          <div v-if="!practice">
+            <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
+            <div class="flex justify-center py-2">
+              <button
+                @click="
+                  setPractice();
+                  getRandomInt(0, 4);
+                "
+                class="button-partiu focus:outline-none"
+              >
+                PARTIU
+              </button>
+            </div>
           </div>
-        </div>
+        </transition>
 
         <div v-if="practice">
           <div class="flex justify-center">
@@ -36,7 +38,7 @@
             <button
               @click="
                 setPractice();
-                getRandomInt(0,4);
+                getRandomInt(0, 4);
               "
               class="button-partiu"
             >
@@ -65,7 +67,6 @@ export default {
     };
   },
 
-
   methods: {
     setPractice() {
       this.practice = !this.practice;
@@ -79,7 +80,7 @@ export default {
         this.index = Math.floor(Math.random() * (max - min)) + min;
       }, 3000);
       if (this.practice == false) {
-          document.location.reload(true)
+        document.location.reload(true);
       }
     },
   },
@@ -88,6 +89,14 @@ export default {
 
 
 <style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .button-partiu {
   background-color: #FF7F0D;
   font-size: 22px;
