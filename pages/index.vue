@@ -13,10 +13,7 @@
           <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
           <div class="flex justify-center py-2">
             <button
-              @click="
-                setPractice();
-                getRandomInt(0, 4);
-              "
+              @click="setPractice()"
               class="button-partiu focus:outline-none"
             >
               PARTIU
@@ -24,23 +21,21 @@
           </div>
         </div>
 
-        <div v-if="practice">
-          <div class="flex justify-center">
-            <audio :src="notasArray[index].audio" autoplay></audio>
-            <img :src="notasArray[index].url" alt="Chord" />
-          </div>
-          <h1 class="text-center text-6xl font-bold pb-2">
+        <div class="flex flex-col" v-if="practice">
+          <h1 class="chord-title -mb-10">
             {{ notasArray[index].chord }}
           </h1>
+
+          <div style="min-height: 450px">
+            <div v-if="reveal" class="flex justify-center pb-10">
+              <audio :src="notasArray[index].audio" autoplay></audio>
+              <img :src="notasArray[index].url" alt="Chord" />
+            </div>
+          </div>
+
           <div class="flex justify-center">
-            <button
-              @click="
-                setPractice();
-                getRandomInt(0, 4);
-              "
-              class="button-partiu"
-            >
-              PARAR DE PRATICAR
+            <button @click="getRandomInt(0, 4)" class="button-partiu">
+              REVELAR DIAGRAMA
             </button>
           </div>
         </div>
@@ -62,6 +57,7 @@ export default {
       notasArray: notas,
       practice: false,
       index: 0,
+      reveal: false,
     };
   },
 
@@ -71,15 +67,14 @@ export default {
     },
 
     getRandomInt(min, max) {
-      let myInterval = setInterval(() => {
+      this.reveal = true;
+      setTimeout(() => {
         console.log("Tá chamando");
         min = Math.ceil(min);
         max = Math.floor(max);
         this.index = Math.floor(Math.random() * (max - min)) + min;
+        this.reveal = false;
       }, 3000);
-      if (this.practice == false) {
-        document.location.reload(true);
-      }
     },
   },
 };
@@ -92,12 +87,20 @@ export default {
   font-size: 22px;
   @apply rounded-full py-4 px-10;
   transition: transform linear 150ms;
-
+  &:focus {
+    @apply outline-none;
+  }
   &:hover {
     transition: transform linear 150ms;
     transform: scale(0.9);
   }
 }
+
+.chord-title {
+  color: #FF7F0D;
+  @apply text-center text-6xl font-bold;
+}
+
 .frame {
   min-height: 750px;
 }
