@@ -25,10 +25,10 @@
           <h1 class="chord-title -mb-10">
             {{ notasArray[index].chord }}
           </h1>
+          <audio :src="notasArray[index].audio" autoplay></audio>
 
           <div style="min-height: 450px">
             <div v-if="reveal" class="flex justify-center pb-10">
-              <audio :src="notasArray[index].audio" autoplay></audio>
               <img :src="notasArray[index].url" alt="Chord" />
             </div>
           </div>
@@ -74,7 +74,7 @@ export default {
         max = Math.floor(max);
         this.index = Math.floor(Math.random() * (max - min)) + min;
         this.reveal = false;
-      }, 3000);
+      }, 5000);
     },
   },
 };
