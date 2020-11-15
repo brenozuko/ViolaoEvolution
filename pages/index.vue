@@ -25,7 +25,7 @@
           <h1 class="chord-title -mb-10">
             {{ notasArray[index].chord }}
           </h1>
-          <audio :src="notasArray[index].audio" autoplay></audio>
+          <audio :src="notasArray[index].audio" autoplay loop></audio>
 
           <div style="min-height: 450px">
             <div v-if="reveal" class="flex justify-center pb-10">
@@ -79,7 +79,7 @@ export default {
           this.index = Math.floor(Math.random() * (max - min)) + min;
           this.reveal = false;
           this.calledOnce = 0;
-        }, 5000);
+        }, 3000);
       }
     },
   },
