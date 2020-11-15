@@ -29,9 +29,9 @@
           </h1>
           <audio :src="notasArray[indexElement].audio" autoplay loop></audio>
 
-          <div style="min-height: 450px">
+          <div style="min-height: 350px">
             <div v-if="reveal" class="flex justify-center pb-10">
-              <img :src="notasArray[indexElement].url" alt="Chord" />
+              <img class="diagram-image" :src="notasArray[indexElement].url" alt="Chord" />
             </div>
           </div>
 
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <p class="text-center pb-2">
+    <p class="text-center mt-10 pb-2">
       Violão Evolution &copy Todos direitos reservados.
     </p>
   </div>
@@ -62,7 +62,7 @@ export default {
       reveal: false,
       beforeNumber: 0,
       calledOnce: 0,
-      indexArray: [0, 1, 2, 3, 4],
+      indexArray: [0, 1, 2],
       indexElement: 0,
     };
   },
@@ -89,6 +89,7 @@ export default {
 
     goThroughSequence() {
       if (this.index == 0) {
+        console.log("Chamou o shuffle")
         this.shuffle(this.indexArray);
       }
 
@@ -139,7 +140,7 @@ export default {
   background-color: #FF7F0D;
   font-size: 22px;
   max-width: 400px;
-  @apply rounded-full py-4 px-10 mx-2 my-2;
+  @apply rounded-full py-2 px-10 mx-2 my-2;
   transition: transform linear 150ms;
   &:focus {
     @apply outline-none;
@@ -150,13 +151,17 @@ export default {
   }
 }
 
+.diagram-image{
+  height: 300px;
+}
+
 .chord-title {
   color: #FF7F0D;
   @apply text-center text-6xl font-bold;
 }
 
 .frame {
-  min-height: 750px;
+  min-height: 300px;
 }
 
 @media (min-width: 768px) {
