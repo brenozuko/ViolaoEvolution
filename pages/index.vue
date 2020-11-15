@@ -33,8 +33,8 @@
             </div>
           </div>
 
-          <div class="flex justify-center">
-            <button @click="getRandomInt(0, 4)" class="button-partiu">
+          <div class="flex flex-col md:flex-row justify-center mx-auto">
+            <button @click="getRandomInt(0, 4, $event)" class="button-partiu">
               REVELAR DIAGRAMA
             </button>
           </div>
@@ -58,6 +58,8 @@ export default {
       practice: false,
       index: 0,
       reveal: false,
+      beforeNumber: 0,
+      calledOnce: 0,
     };
   },
 
@@ -66,15 +68,19 @@ export default {
       this.practice = !this.practice;
     },
 
-    getRandomInt(min, max) {
+    getRandomInt(min, max, event) {
       this.reveal = true;
-      setTimeout(() => {
-        console.log("Tá chamando");
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        this.index = Math.floor(Math.random() * (max - min)) + min;
-        this.reveal = false;
-      }, 5000);
+      this.calledOnce++;
+      if (this.calledOnce == 1) {
+        setTimeout(() => {
+          console.log("Tá chamando");
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          this.index = Math.floor(Math.random() * (max - min)) + min;
+          this.reveal = false;
+          this.calledOnce = 0;
+        }, 5000);
+      }
     },
   },
 };
@@ -85,7 +91,8 @@ export default {
 .button-partiu {
   background-color: #FF7F0D;
   font-size: 22px;
-  @apply rounded-full py-4 px-10;
+  max-width: 400px;
+  @apply rounded-full py-4 px-10 mx-2 my-2;
   transition: transform linear 150ms;
   &:focus {
     @apply outline-none;
