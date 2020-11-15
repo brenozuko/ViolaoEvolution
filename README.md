@@ -1,6 +1,6 @@
 # Sistema de apoio ao aprendizado de violão.
 
-Esta aplicação tem como propósito inicial oferecer apoio ao estudante de violão para treino de visualização e troca de acordes.
+Esta aplicação tem como propósito inicial oferecer apoio ao estudante de violão para treino de visualização e troca de acordes. Feito pra o curso Violão Evolution da Wolf Marketing.
 
 ## Build Setup
 
