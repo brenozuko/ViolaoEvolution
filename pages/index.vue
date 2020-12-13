@@ -63,6 +63,10 @@ export default {
     };
   },
 
+  mounted() {
+    this.getRandomIndex(0, 2);
+  },
+
   computed: {
     practiceShow() {
       return this.$store.state.screenStatus.practiceShow;
@@ -123,6 +127,12 @@ export default {
       }
 
       return array;
+    },
+
+    getRandomIndex(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      this.indexElement = Math.floor(Math.random() * (max - min + 1)) + min;
     },
   },
 };
