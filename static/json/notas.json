@@ -6,15 +6,27 @@
     "audio": "http://violaoevolution.com.br/wp-content/uploads/2020/11/D.mp3"
   },
   {
-    "id": 3,
+    "id": 2,
     "url": "https://i.ibb.co/jMs9Ksn/E-removebg-preview.png",
     "chord": "E",
     "audio": "http://violaoevolution.com.br/wp-content/uploads/2020/11/E.mp3"
   },
   {
-    "id": 5,
+    "id": 3,
     "url": "https://i.ibb.co/NK6TFBG/A-removebg-preview.png",
     "chord": "A",
     "audio": "http://violaoevolution.com.br/wp-content/uploads/2020/11/A.mp3"
+  },
+  {
+    "id": 4,
+    "url": "https://i.ibb.co/ft31r62/C-removebg-preview.png",
+    "chord": "C",
+    "audio": "http://violaoevolution.com.br/wp-content/uploads/2020/11/C.mp3"
+  },
+  {
+    "id": 5,
+    "url": "https://i.ibb.co/h9h24dZ/G-removebg-preview.png",
+    "chord": "G",
+    "audio": "http://violaoevolution.com.br/wp-content/uploads/2020/11/G.mp3"
   }
 ]

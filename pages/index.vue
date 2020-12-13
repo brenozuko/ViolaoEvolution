@@ -4,26 +4,18 @@
       <div>
         <div class="flex pt-2 justify-center">
           <a href="/">
-          <img
-            class="h-24"
-            src="@/assets/img/violao-branco.png"
-            alt="Violão Branco"
-          />
+            <img
+              class="h-24"
+              src="@/assets/img/violao-branco.png"
+              alt="Violão Branco"
+            />
           </a>
         </div>
-        <div v-if="!practice">
-          <h1 class="text-4xl text-center font-bold pt-40">BORA PRATICAR?</h1>
-          <div class="flex justify-center py-2">
-            <button
-              @click="setPractice()"
-              class="button-partiu focus:outline-none"
-            >
-              PARTIU
-            </button>
-          </div>
-        </div>
 
-        <div class="flex flex-col" v-if="practice">
+        <FirstScreen v-if="practiceShow" />
+        <SelectLevel v-else-if="levelShow" />
+
+        <div v-else class="flex flex-col">
           <h1 class="chord-title -mb-10">
             {{ notasArray[indexElement].chord }}
           </h1>
@@ -31,7 +23,11 @@
 
           <div style="min-height: 350px">
             <div v-if="reveal" class="flex justify-center pb-10">
-              <img class="diagram-image" :src="notasArray[indexElement].url" alt="Chord" />
+              <img
+                class="diagram-image"
+                :src="notasArray[indexElement].url"
+                alt="Chord"
+              />
             </div>
           </div>
 
@@ -43,7 +39,9 @@
         </div>
       </div>
     </div>
-    <p class="text-center mt-10 pb-2">
+    <p
+      class="text-center absolute md:relative bottom-0 pl-2 md:pl-0 mt-10 pb-6"
+    >
       Violão Evolution &copy Todos direitos reservados.
     </p>
   </div>
@@ -57,54 +55,50 @@ export default {
   data() {
     return {
       notasArray: notas,
-      practice: false,
       index: 0,
       reveal: false,
       beforeNumber: 0,
       calledOnce: 0,
-      indexArray: [0, 1, 2],
       indexElement: 0,
     };
   },
 
-  methods: {
-    setPractice() {
-      this.practice = !this.practice;
+  computed: {
+    practiceShow() {
+      return this.$store.state.screenStatus.practiceShow;
     },
 
-    // getRandomInt(min, max) {
-    //   this.reveal = true;
-    //   this.calledOnce++;
-    //   if (this.calledOnce == 1) {
-    //     setTimeout(() => {
-    //       console.log("Tá chamando");
-    //       min = Math.ceil(min);
-    //       max = Math.floor(max);
-    //       this.index = Math.floor(Math.random() * (max - min)) + min;
-    //       this.reveal = false;
-    //       this.calledOnce = 0;
-    //     }, 3000);
-    //   }
-    // },
+    levelShow() {
+      return this.$store.state.screenStatus.levelShow;
+    },
 
+    levelState() {
+      return this.$store.state.screenStatus.levelState;
+    },
+
+    getArray() {
+      return this.$store.state.screenStatus.arrayShuffle;
+    },
+  },
+
+  methods: {
     goThroughSequence() {
       if (this.index == 0) {
-        console.log("Chamou o shuffle")
-        this.shuffle(this.indexArray);
+        this.shuffle(this.getArray);
       }
 
       this.reveal = true;
       this.calledOnce++;
       if (this.calledOnce == 1) {
         setTimeout(() => {
-          console.log(this.indexArray);
-          this.indexElement = this.indexArray[this.index];
+          console.log(this.getArray);
+          this.indexElement = this.getArray[this.index];
           this.reveal = false;
-           this.calledOnce = 0;
+          this.calledOnce = 0;
         }, 3000);
       }
 
-      if (this.index < this.indexArray.length - 1) {
+      if (this.index < this.getArray.length - 1) {
         this.index++;
       } else {
         this.index = 0;
@@ -136,8 +130,16 @@ export default {
 
 
 <style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .button-partiu {
-  background-color: #FF7F0D;
+  background-color: #ff7f0d;
   font-size: 22px;
   max-width: 400px;
   @apply rounded-full py-2 px-10 mx-2 my-2;
@@ -151,12 +153,12 @@ export default {
   }
 }
 
-.diagram-image{
+.diagram-image {
   height: 300px;
 }
 
 .chord-title {
-  color: #FF7F0D;
+  color: #ff7f0d;
   @apply text-center text-6xl font-bold;
 }
 
