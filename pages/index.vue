@@ -32,7 +32,7 @@
           </div>
 
           <div class="flex flex-col md:flex-row justify-center mx-auto">
-            <button @click="goThroughSequence()" class="button-partiu">
+            <button @click="goThroughSequence()" class="button-diagram">
               REVELAR DIAGRAMA
             </button>
           </div>
@@ -148,12 +148,14 @@ export default {
   opacity: 0;
 }
 
-.button-partiu {
+.button-diagram {
   background-color: #ff7f0d;
   font-size: 22px;
-  max-width: 400px;
-  @apply rounded-full py-2 px-10 mx-2 my-2;
+  max-width: 300px;
+  @apply rounded-full py-2 px-6 mx-2 my-2;
   transition: transform linear 150ms;
+  line-height: 28px;
+  font-weight: bold;
   &:focus {
     @apply outline-none;
   }
@@ -182,6 +184,12 @@ export default {
     border-radius: 60px;
     @apply border border-white mx-auto py-6 my-16;
     min-height: 750px;
+  }
+
+  .button-diagram {
+    font-size: 24px;
+    max-width: 400px;
+    @apply py-4 px-6;
   }
 }
 </style>
